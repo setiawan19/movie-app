@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'login_title' => 'Masuk',
+    'username' => 'Nama Pengguna',
+    'password' => 'Kata Sandi',
+    'login_btn' => 'Masuk',
+    'logout_btn' => 'Keluar',
+    'search_placeholder' => 'Cari film...',
+    'no_data' => 'Film tidak ditemukan.',
+    'no_data_content' => 'Silakan masukkan judul film yang valid untuk mencari. Contoh: "Batman", "Avengers", dll.',
+    'add_favorite' => 'Tambah ke Favorit',
+    'remove_favorite' => 'Hapus Favorit',
+    'favorites_title' => 'Film Favorit Saya',
+    'login_failed' => 'Username atau password salah.',
+    'login_required' => 'Silakan login untuk mengakses halaman ini.',
+    'back_to_home' => 'Kembali ke Beranda',
+    'plot' => 'Sinopsis Film',
+    'director' => 'Sutradara',
+    'writer' => 'Penulis Skenario',
+    'actors' => 'Aktor / Pemeran',
+    'add_to_favorite' => 'Tambah ke Favorit',
+    'search' => 'Cari',
+    'home' => 'Beranda',
+];

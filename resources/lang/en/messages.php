@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'login_title' => 'Sign In',
+    'username' => 'Username',
+    'password' => 'Password',
+    'login_btn' => 'Login',
+    'logout_btn' => 'Logout',
+    'search_placeholder' => 'Search movies...',
+    'no_data' => 'No movies found.',
+    'no_data_content' => 'Please input a valid movie title to search. For example: "Batman", "Avengers", etc.',
+    'add_favorite' => 'Add to Favorite',
+    'remove_favorite' => 'Remove Favorite',
+    'favorites_title' => 'My Favorite Movies',
+    'login_failed' => 'Invalid username or password.',
+    'login_required' => 'Please login to access this page.',
+    'back_to_home' => 'Back to Home',
+    'plot' => 'Plot / Synopsis',
+    'director' => 'Director',
+    'writer' => 'Writer',
+    'actors' => 'Actors',
+    'add_to_favorite' => 'Add to Favorite',
+    'search' => 'Search',
+    'home' => 'Home',
+];
