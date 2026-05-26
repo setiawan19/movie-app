@@ -12,7 +12,9 @@ return [
     'add_favorite' => 'Add to Favorite',
     'remove_favorite' => 'Remove Favorite',
     'favorites_title' => 'My Favorite Movies',
-    'login_failed' => 'Invalid username or password.',
+    'login_failed' => 'Invalid username and password.',
+    'login_failed_username' => 'Invalid username',
+    'login_failed_password' => 'Invalid password',
     'login_required' => 'Please login to access this page.',
     'back_to_home' => 'Back to Home',
     'plot' => 'Plot / Synopsis',
@@ -22,4 +24,6 @@ return [
     'add_to_favorite' => 'Add to Favorite',
     'search' => 'Search',
     'home' => 'Home',
+    'show_password' => 'Show password',
+    'hide_password' => 'Hide password',
 ];

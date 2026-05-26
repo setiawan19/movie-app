@@ -12,7 +12,9 @@ return [
     'add_favorite' => 'Tambah ke Favorit',
     'remove_favorite' => 'Hapus Favorit',
     'favorites_title' => 'Film Favorit Saya',
-    'login_failed' => 'Username atau password salah.',
+    'login_failed' => 'Username dan password salah.',
+    'login_failed_username' => 'Username tidak valid',
+    'login_failed_password' => 'Password tidak valid',
     'login_required' => 'Silakan login untuk mengakses halaman ini.',
     'back_to_home' => 'Kembali ke Beranda',
     'plot' => 'Sinopsis Film',
@@ -22,4 +24,6 @@ return [
     'add_to_favorite' => 'Tambah ke Favorit',
     'search' => 'Cari',
     'home' => 'Beranda',
+    'show_password' => 'Tampilkan kata sandi',
+    'hide_password' => 'Sembunyikan kata sandi',
 ];

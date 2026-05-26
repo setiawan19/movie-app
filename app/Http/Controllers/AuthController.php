@@ -16,12 +16,16 @@ class AuthController extends Controller {
         $credentials = $request->only(['username', 'password']);
 
         // Autentikasi statis sesuai kriteria test
-        if ($credentials['username'] === 'aldmic' && $credentials['password'] === '123abc123') {
-            Session::put('user_logged', true);
-            return redirect('/');
+        if ($credentials['username'] !== 'aldmic' && $credentials['password'] !== '123abc123') {
+            return back()->withErrors([__('messages.login_failed')]);
+        } elseif ($credentials['username'] !== 'aldmic') {
+            return back()->withErrors([__('messages.login_failed_username')]);
+        } elseif ($credentials['password'] !== '123abc123') {
+            return back()->withErrors([__('messages.login_failed_password')]);
         }
 
-        return back()->withErrors([__('messages.login_failed')]);
+        Session::put('user_logged', true);
+        return redirect('/');
     }
 
     public function logout(): RedirectResponse {
