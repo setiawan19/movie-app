@@ -26,4 +26,10 @@ return [
     'home' => 'Beranda',
     'show_password' => 'Tampilkan kata sandi',
     'hide_password' => 'Sembunyikan kata sandi',
+    'confirm_delete' => 'Apakah Anda yakin ingin menghapus',
+    'confirm_page' => 'dari daftar favorit?',
+    'success_delete' => 'Film berhasil dihapus',
+    'error_delete' => 'Terjadi kesalahan saat menghapus film dari favorit. Silakan coba lagi.',
+    'error_add_favorite' => 'Terjadi kesalahan saat menambahkan ke favorit. Silakan coba lagi.',
+    'success_add_favorite' => 'Berhasil ditambahkan ke favorit.',
 ];

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
@@ -31,17 +32,17 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">{{ trans('messages.home') }}</a>
+                        <a class="nav-link" href="/">{{ __('messages.home') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/favorites">{{ trans('messages.favorites_title') }}</a>
+                        <a class="nav-link" href="/favorites">{{ __('messages.favorites_title') }}</a>
                     </li>
                 </ul>
                 <div class="navbar-nav ml-auto align-items-center">
                     <a href="/lang/en" class="nav-item nav-link mr-2 {{ app()->getLocale() == 'en' ? 'active font-weight-bold text-primary' : '' }}">EN</a>
                     <a href="/lang/id" class="nav-item nav-link mr-3 {{ app()->getLocale() == 'id' ? 'active font-weight-bold text-primary' : '' }}">ID</a>
                     
-                    <a href="/logout" class="btn btn-sm btn-outline-danger">{{ trans('messages.logout_btn') }}</a>
+                    <a href="/logout" class="btn btn-sm btn-outline-danger">{{ __('messages.logout_btn') }}</a>
                 </div>
             </div>
         </div>
@@ -96,25 +97,25 @@
                 },
                 success: function(response) {
                     if (response.status === 'success') {
-                        showAlert('🎬 ' + title + ' berhasil ditambahkan ke favorit!', 'success');
+                        showAlert('🎬 ' + title + ' {{ addslashes(__("messages.success_add_favorite")) }}', 'success');
                     }
                 },
                 error: function(xhr, status, error) {
-                    showAlert('Gagal menambahkan ke favorit. Silakan coba lagi.', 'danger');
+                    showAlert('{{ addslashes(__("messages.error_add_favorite")) }}', 'danger');
                 }
             });
         }
 
         // RemoveFromFavorite Function (reusable for favorites page)
         function removeFromFavorite(imdbID, title) {
-            if (confirm('Apakah Anda yakin ingin menghapus "' + title + '" dari daftar favorit?')) {
+            if (confirm('{{ addslashes(__("messages.confirm_delete")) }} ' + title + ' {{ addslashes(__("messages.confirm_page")) }}')) {
                 $.ajax({
                     url: '/favorites/delete/' + imdbID,
                     type: 'DELETE', // Menggunakan HTTP Method DELETE sesuai dengan rute Laravel
                     success: function(response) {
                         if (response.status === 'success') {
                             // 1. Tampilkan Alert Bootstrap reusable kita
-                            showAlert('🗑️ ' + title + ' telah dihapus dari favorit.', 'success');
+                            showAlert('🗑️ ' + title + ' {{ addslashes(__("messages.success_delete")) }}', 'success');
                             
                             // 2. Hilangkan card film dari layar secara instan dengan animasi fadeOut
                             $('#movie-card-' + imdbID).fadeOut(500, function() {
@@ -129,7 +130,7 @@
                         }
                     },
                     error: function() {
-                        showAlert('Gagal menghapus film. Silakan coba lagi.', 'danger');
+                        showAlert('{{ addslashes(__("messages.error_delete")) }}', 'danger');
                     }
                 });
             }

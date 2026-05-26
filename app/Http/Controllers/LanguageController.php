@@ -2,24 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Session;
 
 class LanguageController extends Controller
 {
-    /**
-     * Mengubah bahasa aplikasi berdasarkan parameter locale.
-     *
-     * @param  string  $locale
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function switchLang($locale)
+    public function switchLang(string $locale): RedirectResponse
     {
         // Validasi untuk memastikan hanya bahasa 'en' atau 'id' yang diproses
         if (in_array($locale, ['en', 'id'])) {
-            session()->put('locale', $locale);
+            Session::put('locale', $locale);
         }
 
         // Kembalikan user ke halaman sebelumnya setelah bahasa diubah
-        return redirect()->back();
+        return back();
     }
 }

@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\OmdbService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
 
-class MovieController extends Controller {
-    private string $apiKey;
-    private string $baseUrl = 'https://www.omdbapi.com/';
+class MovieController extends Controller 
+{
+    /**
+     * @var OmdbService
+     */
+    protected $omdbService;
 
-    public function __construct() {
-        $this->apiKey = config('services.omdb.key', '6f525d05');
+    public function __construct(OmdbService $omdbService)
+    {
+        $this->omdbService = $omdbService;
     }
 
     /**
@@ -29,7 +33,7 @@ class MovieController extends Controller {
         }
 
         $page = $request->input('page', 1);
-        $data = $this->fetchFromOmdb(['s' => $search, 'page' => $page]);
+        $data = $this->omdbService->fetch(['s' => $search, 'page' => $page]);
 
         if ($request->ajax()) {
             return response()->json($data);
@@ -43,15 +47,8 @@ class MovieController extends Controller {
 
     public function detail(string $id): View 
     {
-        $movie = $this->fetchFromOmdb(['i' => $id, 'plot' => 'full']);
-        return view('movies.detail', compact('movie'));
-    }
+        $movie = $this->omdbService->fetch(['i' => $id, 'plot' => 'full']);
 
-    private function fetchFromOmdb(array $params): array 
-    {
-        // Implementasi HTTP Client Laravel 11 yang lebih elegan
-        return Http::get($this->baseUrl, array_merge($params, [
-            'apikey' => $this->apiKey
-        ]))->json() ?? ['Response' => 'False', 'Error' => 'API Connection Error'];
+        return view('movies.detail', compact('movie'));
     }
 }

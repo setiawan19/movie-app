@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ trans('messages.login_title') }} - Movie App</title>
+    <title>{{ __('messages.login_title') }} - Movie App</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <style>
         body {
@@ -45,7 +45,7 @@
                 <div class="card login-card p-4">
                     <div class="card-body">
                         <h3 class="text-center mb-4 font-weight-bold text-secondary">
-                            {{ trans('messages.login_title') }}
+                            {{ __('messages.login_title') }}
                         </h3>
 
                         @if ($errors->any())
@@ -63,12 +63,12 @@
 
                         <form action="/login" method="POST">
                             @csrf <div class="form-group mb-3">
-                                <label for="username" class="text-muted font-weight-boldSmall">{{ trans('messages.username') }}</label>
+                                <label for="username" class="text-muted font-weight-boldSmall">{{ __('messages.username') }}</label>
                                 <input type="text" name="username" id="username" class="form-control form-control-lg" required autocomplete="off" autofocus>
                             </div>
 
                             <div class="form-group mb-4">
-                                <label for="password" class="text-muted font-weight-boldSmall">{{ trans('messages.password') }}</label>
+                                <label for="password" class="text-muted font-weight-boldSmall">{{ __('messages.password') }}</label>
                                 <div class="form-group">
                                     <div style="position: relative;">
                                         <!-- Input Password -->
@@ -95,7 +95,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-lg btn-block btn-login font-weight-bold">
-                                {{ trans('messages.login_btn') }}
+                                {{ __('messages.login_btn') }}
                             </button>
                         </form>
 
@@ -129,7 +129,7 @@
             } else {
                 eyeIcon.style.display = 'block';
                 eyeSlashIcon.style.display = 'none';
-                this.setAttribute('aria-label', "{{ __('messages.show_password') }}");
+            this.setAttribute('aria-label', "{{ addslashes(__('messages.show_password')) }}");
             }
         });
     </script>

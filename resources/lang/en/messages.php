@@ -26,4 +26,10 @@ return [
     'home' => 'Home',
     'show_password' => 'Show password',
     'hide_password' => 'Hide password',
+    'confirm_delete' => 'Are you sure you want to remove "',
+    'confirm_page' => 'from your favorites?',
+    'success_delete' => 'Movie removed from favorites successfully.',
+    'error_delete' => 'Error removing movie from favorites. Please try again.',
+    'error_add_favorite' => 'Error adding to favorites. Please try again.',
+    'success_add_favorite' => 'Added to favorites successfully.',
 ];
