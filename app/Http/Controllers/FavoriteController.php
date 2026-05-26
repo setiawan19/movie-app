@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 
 class FavoriteController extends Controller
@@ -23,7 +23,7 @@ class FavoriteController extends Controller
     /**
      * Menambahkan film ke dalam daftar favorit di session.
      */
-    public function add(Request $request): JsonResponse|RedirectResponse
+    public function add(Request $request)
     {
         // Validasi input untuk memastikan integritas data session
         $request->validate([
@@ -54,7 +54,7 @@ class FavoriteController extends Controller
     /**
      * Menghapus film dari daftar favorit.
      */
-    public function destroy(Request $request, string $id): JsonResponse|RedirectResponse
+    public function destroy(Request $request, string $id)
     {
         $favorites = Session::get('favorites', []);
 

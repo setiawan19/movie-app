@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http; // Gunakan Wrapper HTTP Laravel yang lebih modern
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
@@ -16,7 +16,11 @@ class MovieController extends Controller {
         $this->apiKey = config('services.omdb.key', '6f525d05');
     }
 
-    public function index(Request $request): View|JsonResponse 
+    /**
+     * @param Request $request
+     * @return View|JsonResponse
+     */
+    public function index(Request $request)
     {
         $search = $request->input('s', Session::get('last_search', ''));
 
