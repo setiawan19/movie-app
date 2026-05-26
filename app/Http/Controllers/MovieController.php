@@ -3,54 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http; // Gunakan Wrapper HTTP Laravel yang lebih modern
+use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
 
 class MovieController extends Controller {
-    /**
-     * API Key sebaiknya diletakkan di .env, namun untuk keperluan test 
-     * diletakkan di sini agar portable.
-     */
-    private $apiKey = '6f525d05'; 
+    private string $apiKey;
+    private string $baseUrl = 'https://www.omdbapi.com/';
 
-    /**
-     * Base URL dibersihkan dari query parameter hardcoded (?i=tt3896198).
-     */
-    private $baseUrl = 'https://www.omdbapi.com/';
+    public function __construct() {
+        $this->apiKey = config('services.omdb.key', '6f525d05');
+    }
 
-    public function index(Request $request) {
-        // Ambil 's' dari request, jika tidak ada ambil dari session (persistensi)
-        $search = $request->input('s', session('last_search', ''));
+    public function index(Request $request): View|JsonResponse 
+    {
+        $search = $request->input('s', Session::get('last_search', ''));
 
-        // Jika user melakukan pencarian baru (input 's' ada di request), update session
         if ($request->has('s')) {
-            session(['last_search' => $search]);
+            Session::put('last_search', $search);
         }
 
         $page = $request->input('page', 1);
+        $data = $this->fetchFromOmdb(['s' => $search, 'page' => $page]);
 
-        // Jika request via AJAX (untuk Infinite Scroll)
         if ($request->ajax()) {
-            return response()->json($this->fetchFromOmdb(['s' => $search, 'page' => $page]));
+            return response()->json($data);
         }
 
-        $movies = $this->fetchFromOmdb(['s' => $search, 'page' => $page]);
-        return view('movies.index', compact('movies', 'search'));
+        return view('movies.index', [
+            'movies' => $data,
+            'search' => $search
+        ]);
     }
 
-    public function detail($id) {
+    public function detail(string $id): View 
+    {
         $movie = $this->fetchFromOmdb(['i' => $id, 'plot' => 'full']);
         return view('movies.detail', compact('movie'));
     }
 
-    private function fetchFromOmdb($params) {
-        $client = new Client();
-        $params['apikey'] = $this->apiKey;
-        
-        try {
-            $response = $client->get($this->baseUrl, ['query' => $params]);
-            return json_decode($response->getBody()->getContents(), true);
-        } catch (\Exception $e) {
-            return ['Response' => 'False', 'Error' => $e->getMessage()];
-        }
+    private function fetchFromOmdb(array $params): array 
+    {
+        // Implementasi HTTP Client Laravel 11 yang lebih elegan
+        return Http::get($this->baseUrl, array_merge($params, [
+            'apikey' => $this->apiKey
+        ]))->json() ?? ['Response' => 'False', 'Error' => 'API Connection Error'];
     }
 }

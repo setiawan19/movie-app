@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Session;
 
 class FavoriteController extends Controller
 {
@@ -14,8 +15,7 @@ class FavoriteController extends Controller
      */
     public function index(): View
     {
-        // Ambil data favorit dari session, jika belum ada set array kosong
-        $favorites = session()->get('favorites', []);
+        $favorites = Session::get('favorites', []);
 
         return view('movies.favorites', compact('favorites'));
     }
@@ -23,7 +23,7 @@ class FavoriteController extends Controller
     /**
      * Menambahkan film ke dalam daftar favorit di session.
      */
-    public function add(Request $request)
+    public function add(Request $request): JsonResponse|RedirectResponse
     {
         // Validasi input untuk memastikan integritas data session
         $request->validate([
@@ -33,43 +33,43 @@ class FavoriteController extends Controller
             'Poster' => 'nullable|string',
         ]);
 
-        $favorites = session()->get('favorites', []);
+        $favorites = Session::get('favorites', []);
         $movieId = $request->input('imdbID');
         
         if (!isset($favorites[$movieId])) {
             $favorites[$movieId] = $request->only(['imdbID', 'Title', 'Year', 'Poster']);
-            session()->put('favorites', $favorites);
+            Session::put('favorites', $favorites);
         }
 
         if ($request->ajax()) {
             return response()->json([
                 'status' => 'success', 
-                'message' => trans('messages.add_to_favorite')
+                'message' => __('messages.add_to_favorite')
             ]);
         }
 
-        return back()->with('success', trans('messages.add_to_favorite'));
+        return back()->with('success', __('messages.add_to_favorite'));
     }
 
     /**
      * Menghapus film dari daftar favorit.
      */
-    public function destroy(Request $request, string $id)
+    public function destroy(Request $request, string $id): JsonResponse|RedirectResponse
     {
-        $favorites = session()->get('favorites', []);
+        $favorites = Session::get('favorites', []);
 
         if (isset($favorites[$id])) {
             unset($favorites[$id]);
-            session()->put('favorites', $favorites);
+            Session::put('favorites', $favorites);
         }
 
         if ($request->ajax()) {
             return response()->json([
                 'status' => 'success', 
-                'message' => trans('messages.remove_favorite')
+                'message' => __('messages.remove_favorite')
             ]);
         }
 
-        return back()->with('success', trans('messages.remove_favorite'));
+        return back()->with('success', __('messages.remove_favorite'));
     }
 }

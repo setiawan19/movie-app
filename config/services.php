@@ -34,4 +34,9 @@ return [
         'secret' => env('SPARKPOST_SECRET'),
     ],
 
+    // Tambahkan konfigurasi OMDb API
+    'omdb' => [
+        'key' => env('OMDB_API_KEY', '6f525d05'),
+    ],
+
 ];
