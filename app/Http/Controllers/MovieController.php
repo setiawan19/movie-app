@@ -18,7 +18,14 @@ class MovieController extends Controller {
     private $baseUrl = 'https://www.omdbapi.com/';
 
     public function index(Request $request) {
-        $search = $request->input('s', ''); // Default search parameter jika kosong
+        // Ambil 's' dari request, jika tidak ada ambil dari session (persistensi)
+        $search = $request->input('s', session('last_search', ''));
+
+        // Jika user melakukan pencarian baru (input 's' ada di request), update session
+        if ($request->has('s')) {
+            session(['last_search' => $search]);
+        }
+
         $page = $request->input('page', 1);
 
         // Jika request via AJAX (untuk Infinite Scroll)

@@ -20,7 +20,8 @@ class AuthController extends Controller {
     }
 
     public function logout(Request $request) {
-        $request->session()->forget('user_logged');
+        // Menggunakan flush() untuk membersihkan semua data session (termasuk status login & history pencarian)
+        $request->session()->flush();
         return redirect('login');
     }
 }
